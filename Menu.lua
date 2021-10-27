@@ -8,7 +8,7 @@ function LibWarCry.createMenu()
         displayName = "WarCry",
         author = "|cFFC0CBm00ny|r",
         version = LibWarCry.version,
-        website = "https://www.esoui.com/downloads/info3212-LibWarCry.html",
+        website = "https://github.com/m00nyONE/LibWarCry",
         feedback = "https://www.esoui.com/downloads/info3212-LibWarCry.html#comments",
         donation = LibWarCry.donate,
         slashCommand = "/wcsettings",	--(optional) will register a keybind to open to this panel
