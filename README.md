@@ -11,3 +11,5 @@ LibWarCry:CreateWarCry("$NAME", {ID,ID,ID,...})
 
 LibWarCry:PlayWarCry("$NAME")
 ```
+
+see https://github.com/m00nyONE/WarCry as example
