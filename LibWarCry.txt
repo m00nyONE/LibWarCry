@@ -5,8 +5,9 @@
 ; You can read the full terms at https://account.elderscrollsonline.com/add-on-terms
 
 ## APIVersion: 100035 101031
-## Title:  |c8B0000libWarCry|r 
+## Title: LibWarCry
 ## Description: LibWarCry
+## IsLibrary: true
 ## Author: m00nyONE
 ## Version: 0.5.0
 ## AddOnVersion: 6
