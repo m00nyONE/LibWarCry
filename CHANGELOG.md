@@ -1,3 +1,8 @@
+# 1.0.0
+ - changing addon type to Library
+ - adding slashCommand shortcut /wc
+ - adding a lot of documentation in the source code
+
 # 0.5.0
  - adding don ation button
  - API bump

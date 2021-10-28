@@ -9,8 +9,8 @@
 ## Description: LibWarCry
 ## IsLibrary: true
 ## Author: m00nyONE
-## Version: 0.5.0
-## AddOnVersion: 6
+## Version: 1.0.0
+## AddOnVersion: 10
 ## SavedVariables: LibWarCryVars
 
 Menu.lua

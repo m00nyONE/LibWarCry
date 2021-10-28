@@ -14,4 +14,12 @@ LibWarCry:CreateWarCry("$NAME", {ID,ID,ID,...})
 LibWarCry:PlayWarCry("$NAME")
 ```
 
+# Usage
+```
+/p $NAME -> "plays the warcry when you are the leader of the group"
+/wc $NAME -> "plays the warcry for yourself"
+```
+
 Example: https://github.com/m00nyONE/WarCry
+
+Further details can be found in the source code. Everything there is documented and explained.
