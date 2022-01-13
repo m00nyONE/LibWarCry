@@ -1,3 +1,10 @@
+# 1.1.0
+ - adding laguage support
+
+# 1.0.1
+ - bump ESO API version to latest 101032 101031
+ - adding TODO.md 
+
 # 1.0.0
  - changing addon type to Library
  - adding slashCommand shortcut /wc

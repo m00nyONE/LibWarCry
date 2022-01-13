@@ -2,25 +2,30 @@ LibWarCry = LibWarCry or {}
 LibWarCry.name = "LibWarCry"
 LibWarCry.color = "8B0000"
 LibWarCry.credits = "@m00nyONE"
-LibWarCry.version = "1.0.0"
+LibWarCry.version = "1.1.0"
 LibWarCry.slashCmdShort = "/wc"
 LibWarCry.slashCmdLong = "/warcry"
 LibWarCry.variableVersion = 1
 LibWarCry.List = {}
 LibWarCry.defaultVariables = {
+    debug = false,
     groupCommands = true,
 }
+
+local function print(str)
+    d("|c8B0000LibWarCry:|r " .. str )
+end
 
 -- function that creates a warcry and adds it to the internal list
 function LibWarCry:CreateWarCry(name, ids)
     -- error catching to prevent addon developers from doing something bad
-    if name == nil then d("|c8B0000LibWarCry:|r name must not be nil!") return end
-    if type(ids) ~= "table" then d("|c8B0000LibWarCry:|r ids must be a table!") return end
+    if name == nil then print(GetString(LIBWARCRY_ERROR_NAME_MUST_NOT_BE_NIL)) return end
+    if type(ids) ~= "table" then print(GetString(LIBWARCRY_ERROR_IDS_MUST_BE_TABLE)) return end
 
     -- iterate over the inserted id's
     for index, value in ipairs(ids) do
         -- check if they are numbers
-        if type(value) ~="number" then d("|c8B0000LibWarCry:|r id must be a number!") return end
+        if type(value) ~="number" then print(GetString(LIBWARCRY_ERROR_ID_MUST_BE_NUMBER)) return end
     end
 
     -- create a new table inside of the warcry list and fill it with nessecary information
@@ -28,7 +33,7 @@ function LibWarCry:CreateWarCry(name, ids)
     LibWarCry.List[name].collectibleIDs = ids
 
     -- tell the user that the warcry has been created - this will usually not be seen because of the Chat UI loading slower than the addons
-    d("|c8B0000LibWarCry:|r " .. name .. " has been created")
+    print(zo_strformat(GetString(LIBWARCRY_CREATED), name))
 end
 
 -- function that plays the collectible/s
@@ -49,7 +54,7 @@ function LibWarCry:PlayWarCry(name)
                 table.insert(playable, value)
             else 
                 -- otherwise display a message which collectible is missing and where to get it from
-                d("You are missing |H1:collectible:".. value .."|h|h")
+                print(zo_strformat(GetString(LIBWARCRY_ERROR_MISSING_COLLECTIBLE), value))
             end
         end
 
@@ -80,12 +85,12 @@ end
 -- start listener by subscribing to EVENT_CHAT_MESSAGE_CHANNEL
 local function startChatListener()
     EVENT_MANAGER:RegisterForEvent(LibWarCry.name, EVENT_CHAT_MESSAGE_CHANNEL, chatCallback)
-    d("|c8B0000LibWarCry: group listener enabled|r")
+    print(GetString(LIBWARCRY_ENABLED))
 end
 -- stop listener by unsubscribing from EVENT_CHAT_MESSAGE_CHANNEL
 local function stopChatListener()
     EVENT_MANAGER:UnregisterForEvent(LibWarCry.name, EVENT_CHAT_MESSAGE_CHANNEL)
-    d("|c8B0000LibWarCry: group listener disabled|r")
+    print(GetString(LIBWARCRY_DISABLED))
 end
 
 -- toggles the group listener on and off
@@ -147,3 +152,7 @@ EVENT_MANAGER:RegisterForEvent(LibWarCry.name, EVENT_ADD_ON_LOADED, LibWarCry.On
 --- create SLASH_COMMAND that can play every warcry available in the list
 SLASH_COMMANDS[LibWarCry.slashCmdShort] = slashCommand
 SLASH_COMMANDS[LibWarCry.slashCmdLong] = slashCommand
+
+SLASH_COMMANDS["/wcdebug"] = function(str)
+    LibWarCry.savedVariables.debug = not LibWarCry.savedVariables.debug
+end

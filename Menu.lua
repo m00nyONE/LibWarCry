@@ -20,13 +20,13 @@ function LibWarCry.createMenu()
     local optionsTable = {
         [1] = {
             type = "header",
-            name = "group control settings",
+            name = GetString(LIBWARCRY_MENU_GCS_NAME),
             width = "full",
         },
         [2] = {
             type = "checkbox",
-            name = "synced WarCry",
-            tooltip = "enables/disables listening for chat events to sync warcry in the group",
+            name = GetString(LIBWARCRY_MENU_GCS_SYNCED_WARCRY_TITLE),
+            tooltip = GetString(LIBWARCRY_MENU_GCS_SYNCED_WARCRY_TOOLTIP),
             getFunc = function() return LibWarCry.savedVariables.groupCommands end,
             setFunc = function(value) LibWarCry.toggleListener(value) end,
             width = "half",

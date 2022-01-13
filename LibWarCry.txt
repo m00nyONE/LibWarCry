@@ -4,14 +4,17 @@
 ; States and/or other countries. All rights reserved.
 ; You can read the full terms at https://account.elderscrollsonline.com/add-on-terms
 
-## APIVersion: 100035 101031
+## APIVersion: 101032 101031
 ## Title: LibWarCry
-## Description: LibWarCry
+## Description: LibWarCry allows addon authors to create their own warcrys to sync within a group
 ## IsLibrary: true
 ## Author: m00nyONE
-## Version: 1.0.0
-## AddOnVersion: 10
+## Version: 1.1.0
+## AddOnVersion: 010100
 ## SavedVariables: LibWarCryVars
+
+lang/en.lua
+lang/$(language).lua
 
 Menu.lua
 libWarCry.lua
