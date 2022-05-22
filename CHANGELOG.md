@@ -1,3 +1,12 @@
+# 2.0.0
+ - add emote support - as an addon developer you can now add emotes or slashcommands to your warcrys
+
+# 1.1.2
+ - fixed that i missed the unregisterforevent after addon is loaded
+
+# 1.1.1
+ - fixed an issue where a merge deleted the DependsOn in LibWarCry.txt
+
 # 1.1.0
  - adding laguage support
 

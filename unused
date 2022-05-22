@@ -1,0 +1,62 @@
+function LibWarCry.SearchForEmoteIdByString(str)
+    local emoteList = {}
+    local numEmotes = GetNumEmotes()
+    for i = 1, numEmotes do
+        local index = GetEmoteIndex(i)
+        if index ~= nil then
+            local slashName = GetEmoteInfo(index)
+            local i, j = string.find(slashName, str)
+            if i ~= nil then
+                d(index .. " : " .. slashName)
+            end
+        end
+
+        --local collectibleId = GetEmoteCollectibleId(i)
+        --if collectibleId then
+
+        --d(slashName)
+        --if not emoteList[slashName] then
+        --    emoteList[slashName] = index
+        --end
+
+       -- end
+        --d(collectibleId)
+        --if not collectibleId or IsCollectibleUnlocked(collectibleId) then
+        --    d("lel")
+        --end
+    end
+
+    --[[
+    for slashName, index in pairs(emoteList) do
+        local i, j = string.find(slashName, str)
+        if i ~= nil then
+            d(index .. " : " .. slashName)
+        end
+    end
+    ]]--
+end
+function LibWarCry.GetEmoteList()
+    for slashName, index in pairs(emoteList) do
+        d(index .. " : " .. slashName)
+    end
+end
+function LibWarCry.GenerateEmoteList()
+    local numEmotes = GetNumEmotes()
+    for i = 1, numEmotes do
+        local index = GetEmoteIndex(i)
+        local slashName = GetEmoteInfo(index)
+        --local collectibleId = GetEmoteCollectibleId(i)
+        --if collectibleId then
+
+            --d(slashName)
+            if not emoteList[slashName] then
+                emoteList[slashName] = index
+            end
+
+       -- end
+        --d(collectibleId)
+        --if not collectibleId or IsCollectibleUnlocked(collectibleId) then
+        --    d("lel")
+        --end
+    end
+end

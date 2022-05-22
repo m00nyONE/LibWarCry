@@ -2,7 +2,7 @@ LibWarCry = LibWarCry or {}
 LibWarCry.name = "LibWarCry"
 LibWarCry.color = "8B0000"
 LibWarCry.credits = "@m00nyONE"
-LibWarCry.version = "1.1.0"
+LibWarCry.version = "1.1.2"
 LibWarCry.slashCmdShort = "/wc"
 LibWarCry.slashCmdLong = "/warcry"
 LibWarCry.variableVersion = 1
@@ -22,15 +22,24 @@ function LibWarCry:CreateWarCry(name, ids)
     if name == nil then print(GetString(LIBWARCRY_ERROR_NAME_MUST_NOT_BE_NIL)) return end
     if type(ids) ~= "table" then print(GetString(LIBWARCRY_ERROR_IDS_MUST_BE_TABLE)) return end
 
-    -- iterate over the inserted id's
-    for index, value in ipairs(ids) do
-        -- check if they are numbers
-        if type(value) ~="number" then print(GetString(LIBWARCRY_ERROR_ID_MUST_BE_NUMBER)) return end
-    end
-
     -- create a new table inside of the warcry list and fill it with nessecary information
     LibWarCry.List[name] = {}
-    LibWarCry.List[name].collectibleIDs = ids
+    -- iterate over the inserted values
+    for _, value in ipairs(ids) do
+        -- check if they are numbers
+        if type(value) =="number" then
+            -- add them to the table
+            LibWarCry.List[name].collectibleIDs = LibWarCry.List[name].collectibleIDs or {}
+            table.insert(LibWarCry.List[name].collectibleIDs, value)
+        end
+        -- check if they are strings
+        if type(value) == "string" then
+            -- add them to the table
+            LibWarCry.List[name].emoteCommands = LibWarCry.List[name].emoteCommands or {}
+            table.insert(LibWarCry.List[name].emoteCommands, value)
+        end
+    end
+
 
     -- tell the user that the warcry has been created - this will usually not be seen because of the Chat UI loading slower than the addons
     print(zo_strformat(GetString(LIBWARCRY_CREATED), name))
@@ -46,23 +55,51 @@ function LibWarCry:PlayWarCry(name)
     local playable = {}
     -- check if the warcry exists
     if LibWarCry.List[name] ~= nil then
-        -- iterate over the collectible ids of the warcry
-        for index, value in ipairs(LibWarCry.List[name].collectibleIDs) do
-            -- check if the collectible is unlocked
-            if GetCollectibleUnlockStateById(value) == 2 then
-                -- if so, insert it into the playable table/array
-                table.insert(playable, value)
-            else 
-                -- otherwise display a message which collectible is missing and where to get it from
-                print(zo_strformat(GetString(LIBWARCRY_ERROR_MISSING_COLLECTIBLE), value))
+
+        -- check the collectibleIDs first
+        if LibWarCry.List[name].collectibleIDs then
+            -- iterate over the collectible ids of the warcry
+            for _, value in ipairs(LibWarCry.List[name].collectibleIDs) do
+                -- check if the collectible is unlocked
+                if GetCollectibleUnlockStateById(value) == 2 then
+                    -- if so, insert it into the playable table/array
+                    table.insert(playable, value)
+                else
+                    -- otherwise display a message which collectible is missing and where to get it from
+                    print(zo_strformat(GetString(LIBWARCRY_ERROR_MISSING_COLLECTIBLE), value))
+                end
+            end
+        end
+
+        -- then check emoteCommands
+        if LibWarCry.List[name].emoteCommands then
+            -- iterate over the emoteCommands of the warcry
+            for _, value in ipairs(LibWarCry.List[name].emoteCommands) do
+                -- check if the emoteCommands is unlocked
+                if SLASH_COMMANDS[value] ~= nil then
+                    -- if so, insert it into the playable table/array
+                    table.insert(playable, value)
+                else
+                    -- otherwise display a message which collectible is missing and where to get it from
+                    print(zo_strformat(GetString(LIBWARCRY_ERROR_MISSING_COLLECTIBLE), value))
+                end
             end
         end
 
         -- return when there is nothing that can be played
         if #playable == 0 then  return end
-        -- play random collectible from array
-        UseCollectible(playable[ math.random(#playable)])
-        return
+
+        -- play random collectible/emote from playable array
+        local warCry = playable[ math.random(#playable)]
+        if type(warCry) == "string" then
+            DoCommand(warCry)
+            return
+        end
+        if type(warCry) == "number" then
+            UseCollectible(warCry)
+            return
+        end
+
     end
 
 end
@@ -132,6 +169,7 @@ end
 
 function LibWarCry.OnAddOnLoaded(event, addonName)
     if addonName == LibWarCry.name then
+        EVENT_MANAGER:UnregisterForEvent(LibWarCry.name, EVENT_ADD_ON_LOADED)
 
         -- load saved variables ( global )
         LibWarCry.savedVariables = LibWarCry.savedVariables or {}

@@ -9,9 +9,10 @@
 ## Description: LibWarCry allows addon authors to create their own warcrys to sync within a group
 ## IsLibrary: true
 ## Author: m00nyONE
-## Version: 1.1.0
-## AddOnVersion: 010100
+## Version: 2.0.0
+## AddOnVersion: 020000
 ## SavedVariables: LibWarCryVars
+## DependsOn: LibAddonMenu-2.0
 
 lang/en.lua
 lang/$(language).lua
