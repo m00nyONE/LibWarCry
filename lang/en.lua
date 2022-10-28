@@ -3,6 +3,9 @@ local strings = {
     LIBWARCRY_ERROR_ID_MUST_BE_NUMBER = "id must be a number!",
     LIBWARCRY_ERROR_IDS_MUST_BE_TABLE = "ids must be a table!",
     LIBWARCRY_ERROR_NAME_MUST_NOT_BE_NIL = "name must not be nil!",
+    LIBWARCRY_ERROR_NAME_NOT_FOUND = "WarCry not found",
+
+    LIBWARCRY_LIST_AVAILABLE = "Available WarCry's:",
 
     LIBWARCRY_CREATED = "<<1>> has been created",
 

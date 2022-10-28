@@ -1,3 +1,6 @@
+# 2.1.0
+ - finally add a list of all registered warcrys. you can print it by typing ```/wc``` without a name
+
 # 2.0.0
  - add emote support - as an addon developer you can now add emotes or slashcommands to your warcrys
 

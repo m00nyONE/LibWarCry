@@ -18,6 +18,7 @@ LibWarCry:PlayWarCry("$NAME")
 ```
 /p $NAME -> "plays the warcry when you are the leader of the group"
 /wc $NAME -> "plays the warcry for yourself"
+/wc -> list all warcrys
 ```
 
 Example: https://github.com/m00nyONE/WarCry

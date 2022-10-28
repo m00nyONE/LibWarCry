@@ -2,7 +2,7 @@ LibWarCry = LibWarCry or {}
 LibWarCry.name = "LibWarCry"
 LibWarCry.color = "8B0000"
 LibWarCry.credits = "@m00nyONE"
-LibWarCry.version = "2.0.0"
+LibWarCry.version = "2.1.0"
 LibWarCry.slashCmdShort = "/wc"
 LibWarCry.slashCmdLong = "/warcry"
 LibWarCry.variableVersion = 1
@@ -34,12 +34,15 @@ function LibWarCry:CreateWarCry(name, ids)
         end
         -- check if they are strings
         if type(value) == "string" then
+            -- TODO: implement blacklist system
+            if value == "/logout" or value == "/quit" then
+                d("NO WAY")
+            end
             -- add them to the table
             LibWarCry.List[name].emoteCommands = LibWarCry.List[name].emoteCommands or {}
             table.insert(LibWarCry.List[name].emoteCommands, value)
         end
     end
-
 
     -- tell the user that the warcry has been created - this will usually not be seen because of the Chat UI loading slower than the addons
     print(zo_strformat(GetString(LIBWARCRY_CREATED), name))
@@ -81,7 +84,8 @@ function LibWarCry:PlayWarCry(name)
                     table.insert(playable, value)
                 else
                     -- otherwise display a message which collectible is missing and where to get it from
-                    print(zo_strformat(GetString(LIBWARCRY_ERROR_MISSING_COLLECTIBLE), value))
+                    -- TODO: Check the collectible ID of the emote to display it
+                    --print(zo_strformat(GetString(LIBWARCRY_ERROR_MISSING_COLLECTIBLE), value))
                 end
             end
         end
@@ -90,7 +94,7 @@ function LibWarCry:PlayWarCry(name)
         if #playable == 0 then  return end
 
         -- play random collectible/emote from playable array
-        local warCry = playable[ math.random(#playable)]
+        local warCry = playable[math.random(#playable)]
         if type(warCry) == "string" then
             DoCommand(warCry)
             return
@@ -158,13 +162,47 @@ function LibWarCry.donate()
 	200)
 end
 
--- function to play warcry when entering /wc $NAME
-local function slashCommand(str)
-    if str ~= nil then
-        if LibWarCry.List[string.lower(str)] ~= nil then
-            LibWarCry:PlayWarCry(string.lower(str))
+-- function to print all registered warcrys to chat
+local function printWarCryList()
+    -- create an array for the warcry list to be sorted in
+    local sortedWarCryList = {}
+
+    -- loop over the list of warcrys and put them into the newly created sortedWarCryList array
+    for wc, _ in pairs(LibWarCry.List) do
+        table.insert(sortedWarCryList, wc)
+    end
+
+    -- sort sortedWarCryList alphabetically
+    table.sort(sortedWarCryList)
+
+    -- arrange the warcrys together into one string
+    local listStr = ""
+
+    for i, wc in ipairs(sortedWarCryList) do
+        if i ~= #sortedWarCryList then
+            listStr = listStr .. wc .. ", "
+        else
+            listStr = listStr .. wc
         end
     end
+    -- print sortedWarCryList  to chat
+    print(GetString(LIBWARCRY_LIST_AVAILABLE))
+    print(listStr)
+end
+
+-- function to play warcry when entering /wc $NAME
+local function slashCommand(str)
+    if LibWarCry.List[string.lower(str)] ~= nil then
+        LibWarCry:PlayWarCry(string.lower(str))
+        return
+    end
+
+    if str ~= "" then
+        print(str .. " " .. GetString(LIBWARCRY_ERROR_NAME_NOT_FOUND))
+    end
+
+    -- if warcry is not found or no name given, print all available warcrys
+    printWarCryList()
 end
 
 function LibWarCry.OnAddOnLoaded(event, addonName)
