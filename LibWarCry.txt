@@ -10,7 +10,7 @@
 ## IsLibrary: true
 ## Author: |c76c3f4@m00nyONE|r
 ## Version: 2.1.1
-## AddOnVersion: 020100
+## AddOnVersion: 020101
 ## SavedVariables: LibWarCryVars
 ## DependsOn: LibAddonMenu-2.0
 
