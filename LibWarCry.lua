@@ -1,7 +1,7 @@
 LibWarCry = LibWarCry or {}
 LibWarCry.name = "LibWarCry"
 LibWarCry.color = "8B0000"
-LibWarCry.credits = "@m00nyONE"
+LibWarCry.credits = "|c76c3f4@m00nyONE|r"
 LibWarCry.version = "2.1.0"
 LibWarCry.slashCmdShort = "/wc"
 LibWarCry.slashCmdLong = "/warcry"

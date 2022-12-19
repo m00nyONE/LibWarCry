@@ -7,7 +7,7 @@ function LibWarCry.createMenu()
         type = "panel",
         name = "WarCry",
         displayName = "WarCry",
-        author = "|cFFC0CBm00ny|r",
+        author = "|c76c3f4@m00nyONE|r",
         version = LibWarCry.version,
         website = "https://github.com/m00nyONE/LibWarCry",
         feedback = "https://www.esoui.com/downloads/info3212-LibWarCry.html#comments",

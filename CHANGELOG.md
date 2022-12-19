@@ -1,3 +1,6 @@
+# 2.1.1
+ - api bump
+
 # 2.1.0
  - finally add a list of all registered warcrys. you can print it by typing ```/wc``` without a name
 
